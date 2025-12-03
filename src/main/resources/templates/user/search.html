@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Contacts</title>
+    <link rel="stylesheet" th:href="@{/css/output.css}" />
+</head>
+<body>
+<div id="content">
+
+    <!--SIDEBAR  -->
+    <div th:if="${LoggedInUser}">
+        <div th:replace="~{user/sidebar :: sidebar}"></div>
+    </div>
+
+    <div class="sm:pl-64 pt-20" style="min-height:1000px">
+        <h1 class="text-5xl mb-4 text-center">Search Results</h1>
+
+        <!-- Search Results Table -->
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-5 bg-white dark:bg-gray-900">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">Name</th>
+                        <th scope="col" class="px-6 py-3">Phone</th>
+                        <th scope="col" class="px-6 py-3">Links</th>
+                        <th scope="col" class="px-6 py-3">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="c : ${pageContact.content}" th:object="${c}" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                            <img th:src="@{*{picture}}" class="w-10 h-10 rounded-full" alt="Profile">
+                            <div class="ps-3">
+                                <div class="text-base font-semibold" th:text="*{name}"></div>
+                                <div class="font-normal text-gray-500" th:text="*{email}"></div>
+                            </div>  
+                        </th>
+                        <td class="px-6 py-4"><span th:text="*{phoneNumber}"></span></td>
+                        <td class="px-6 py-4">
+                            <div class="flex items-center space-x-2">
+                                <div th:if="*{favourite}" class="h-2.5 w-2.5 rounded-full bg-green-500"></div>
+                                <a th:href="@{*{linkedIn}}" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                                <a th:href="@{*{websiteLink}}" target="_blank"><i class="fa-solid fa-earth-americas"></i></a>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 flex space-x-3">
+                            <a href="#"><i class="fa-solid fa-trash"></i></a>
+                            <a href="#"><i class="fa-solid fa-floppy-disk"></i></a>
+                            <a href="#"><i class="fa-solid fa-eye"></i></a>
+                        </td>
+                    </tr>
+
+                    <!-- No results fallback -->
+                    <tr th:if="${pageContact.content.size() == 0}">
+                        <td colspan="4" class="text-center py-4 text-gray-500">No contacts found</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination_container mt-6">
+            <div class="flex justify-center">
+                <nav aria-label="Page navigation">
+                    <ul class="flex items-center -space-x-px text-base h-10">
+                        <!-- Previous -->
+                        <li>
+                           <a th:href="@{|/user/contacts/search?field=${field}&keyword=${keyword}&page=${currentPage - 1}&size=${pageContact.size}|}"
+   th:classappend="${currentPage == 0} ? 'pointer-events-none opacity-50 cursor-not-allowed' : ''"
+   class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700">
+   Previous
+</a>
+                        </li>
+
+                        <!-- Page numbers -->
+                      <li th:each="index : ${#numbers.sequence(0, pageContact.totalPages - 1)}">
+    <a th:href="@{|/user/contacts/search?field=${field}&keyword=${keyword}&page=${index}&size=${pageContact.size}|}"
+       th:classappend="${currentPage == index} ? 'bg-blue-500 text-white border-blue-500' : 'bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700'"
+       class="flex items-center justify-center px-4 h-10 border border-gray-300">
+       <span th:text="${index + 1}"></span>
+    </a>
+</li>
+
+                        <!-- Next -->
+                        <li>
+                           <a th:href="@{|/user/contacts/search?field=${field}&keyword=${keyword}&page=${currentPage + 1}&size=${pageContact.size}|}"
+   th:classappend="${currentPage + 1 >= pageContact.totalPages} ? 'pointer-events-none opacity-50 cursor-not-allowed' : ''"
+   class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700">
+   Next
+</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+</body>
+</html>

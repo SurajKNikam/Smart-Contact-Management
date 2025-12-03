@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html 
+
+xmlns:th="http://www.thymeleaf.org" 
+th:fragment="parent(content,title,script)">
+<head>
+  <meta charset="UTF-8">
+  <title data-th-replace="${title}">Base Page</title>
+
+  <!-- Flowbite -->
+  <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+
+  <!-- style.css -->
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+
+  <!-- output.css (Tailwind) -->
+  <link rel="stylesheet" th:href="@{/css/output.css}" />
+
+  <!-- ✅ SweetAlert2 (MUST come after Tailwind) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body class="bg-white text-gray-900 bg-gray-300 dark:bg-gray-900 dark:text-white transition-colors duration-300">
+<!-- common header -->
+
+
+
+<!-- If USER IS LOGGED IN NAVBAR-->
+<div th:if="${LoggedInUser}">
+     <div data-th-replace="~{user/user_navbar :: user-navbar}"></div>
+</div>
+<!-- If USER IS LOGGED IN SIDEBAR-->
+
+
+
+<!--USER IS NOT LOGGED IN  -->
+<div th:unless="${LoggedInUser}">
+<div data-th-replace="~{navbar :: navbar}"></div>
+</div>
+
+
+
+<!--Main conetnt  -->
+ <div class="p-4">
+  <section th:replace="${content}">
+      <p> base page content</p> 
+</section>
+</div>
+
+<!--COMMON FOOTER  -->
+<!-- <footer class="p-4">
+    Happy Nation
+</footer> -->
+        
+          <!--Script js  -->
+<script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+<!-- sweet alert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script th:src="@{/Js/script.js}"></script>
+<th:block th:replace="${script}"></th:block>
+</body>
+
+</html>

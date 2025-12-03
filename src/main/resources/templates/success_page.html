@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Error Page</title>
+
+    <!-- Corrected Tailwind link -->
+    <link rel="stylesheet" th:href="@{/css/output.css}" />
+</head>
+
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center" id="content">
+<div th:replace="message::messagebox">
+<!--    <h1 class="text-2xl">Email is Verified ,Now your account is enabled </h1>
+ -->  
+ <a  href="/login" class="bg-green-900 text-white px-3 py-2 rounded">Login</a>
+   </div> 
+<script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+
+</body>
+</html>
+
+
+
+
+

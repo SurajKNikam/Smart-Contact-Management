@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${LoggedInUser.name} + ' | SN'">Profile Page</title>
+
+  <!-- Tailwind output CSS -->
+  <link rel="stylesheet" th:href="@{/css/output.css}" />
+</head>
+
+<body class="bg-gradient-to-r from-sky-50 to-indigo-100 min-h-screen flex justify-center items-center">
+
+<div id="content">
+
+  <!-- SIDEBAR -->
+  <div th:if="${LoggedInUser}">
+    <div th:replace="~{user/sidebar :: sidebar}"></div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="sm:pl-64 pt-20 min-h-screen flex justify-center items-start pb-10">
+    <div class="flex flex-col items-center  mt:pt-32 w-full px-4">
+
+      <!-- Profile Card -->
+      <div id="profileCard"
+           class="max-w-sm w-full bg-white dark:bg-gray-800 shadow-2xl rounded-2xl overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-3xl">
+
+        <!-- Header Section -->
+        <div class="relative bg-gradient-to-r from-indigo-500 to-sky-400 h-32">
+          <div class="absolute inset-x-0 bottom-0 flex justify-center">
+            <img th:src="${#strings.isEmpty(LoggedInUser.profilePic) ? '/images/telephone.png' : LoggedInUser.profilePic}"
+                 onerror="this.onerror=null; this.src='/images/telephone.png';"
+                 alt="Profile Picture"
+                 class="w-28 h-28 rounded-full border-4 border-white shadow-lg -mb-14 object-cover transition-transform duration-300 hover:scale-110" />
+          </div>
+        </div>
+
+        <!-- Profile Body -->
+        <div class="pt-16 pb-6 px-6 text-center">
+  <h2 class="text-2xl  dark:text-white  font-bold text-gray-800 mb-1" th:text="${LoggedInUser.name}">User Name</h2>
+  <p class="text-sm text-gray-500 mb-4  dark:text-white text-gray-800 " th:text="${LoggedInUser.email}">user@example.com</p>
+
+  <div class="flex justify-center gap-4 text-gray-600 mb-4">
+    <div>
+      <span class="font-semibold text-gray-700 dark:text-white text-gray-800">Phone:</span>
+      <span class="dark:text-white text-gray-800"  th:text="${LoggedInUser.phoneNumber}">+91 9999999999</span>
+    </div>
+  </div>
+
+  <p class="dark:text-white text-gray-800 text-sm leading-relaxed" th:text="${LoggedInUser.about}">
+    Passionate Java Developer with Spring Boot & React experience.
+  </p>
+</div>
+        
+
+        <!-- Buttons -->
+       <!--  <div class="px-6 pb-6 flex justify-center gap-4">
+          <a href="/user/edit-profile"
+             class="px-5 py-2 bg-indigo-500 text-white rounded-full font-medium shadow-md hover:bg-indigo-600 transition">
+            Edit Profile
+          </a>
+          <a href="/logout"
+             class="px-5 py-2 bg-gray-300 text-gray-700 rounded-full font-medium hover:bg-gray-400 transition">
+            Logout
+          </a> 
+        </div>-->
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/scrollreveal"></script>
+<script>
+  // reveal animation
+  ScrollReveal().reveal('#profileCard', {
+    duration: 1000,
+    origin: 'bottom',
+    distance: '40px',
+    easing: 'ease-out',
+    reset: false
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: parent(~{::#content}, ~{::title}, ~{::script})}">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Us</title>
+</head>
+
+<body>
+  <div id="content" class="pt-20">
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-500 via-sky-500 to-cyan-400 text-white py-16 text-center rounded-2xl shadow-md mb-16">
+      <h1 class="text-4xl font-bold mb-3">Get in Touch</h1>
+      <p class="max-w-2xl mx-auto text-lg">
+        Have any questions or feedback? We’d love to hear from you.  
+        Connect with us directly or send a message using the form below.
+      </p>
+
+      <!-- Connect via Email Button -->
+      <div class="mt-6">
+        <a href="mailto:sunshinekn03@gmail.com"
+           class="inline-flex items-center gap-2 bg-white text-blue-600 font-semibold px-6 py-3 rounded-lg shadow-md hover:bg-gray-100 transition">
+          <i class="fa-solid fa-envelope"></i> Connect via Email
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact Info Section -->
+    <section class="max-w-5xl mx-auto mt-10 bg-white dark:bg-gray-800 p-10 rounded-2xl shadow-lg mb-20">
+      <div class="grid md:grid-cols-3 gap-10 text-center">
+        <div class="p-4">
+          <i class="fa-solid fa-envelope text-indigo-600 text-3xl mb-3"></i>
+          <h3 class="text-lg font-semibold mb-1">Email</h3>
+          <p class="text-gray-600 dark:text-gray-300">sunshinekn03@gmail.com</p>
+        </div>
+
+        <div class="p-4">
+          <i class="fa-solid fa-phone text-indigo-600 text-3xl mb-3"></i>
+          <h3 class="text-lg font-semibold mb-1">Phone</h3>
+          <p class="text-gray-600 dark:text-gray-300">+91 85******76</p>
+        </div>
+
+        <div class="p-4">
+          <i class="fa-solid fa-location-dot text-indigo-600 text-3xl mb-3"></i>
+          <h3 class="text-lg font-semibold mb-1">Address</h3>
+          <p class="text-gray-600 dark:text-gray-300">Pune, Maharashtra, India</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="max-w-3xl mx-auto bg-white dark:bg-gray-800 p-10 rounded-2xl shadow-lg mb-24">
+      <h2 class="text-2xl font-semibold text-center text-indigo-600 mb-8">Send us a Message</h2>
+
+      <form th:action="@{/contact}" method="post" class="space-y-6">
+        <div>
+          <label for="name" class="block mb-2 font-medium">Full Name</label>
+          <input type="text" id="name" name="name"
+                 class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 focus:ring-2 focus:ring-indigo-500 outline-none"
+                 placeholder="Enter your name" required>
+        </div>
+
+        <div>
+          <label for="email" class="block mb-2 font-medium">Email</label>
+          <input type="email" id="email" name="email"
+                 class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 focus:ring-2 focus:ring-indigo-500 outline-none"
+                 placeholder="Enter your email" required>
+        </div>
+
+        <div>
+          <label for="message" class="block mb-2 font-medium">Message</label>
+          <textarea id="message" name="message" rows="4"
+                    class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 focus:ring-2 focus:ring-indigo-500 outline-none"
+                    placeholder="Type your message..." required></textarea>
+        </div>
+
+        <div class="text-center">
+          <button type="submit"
+                  class="bg-indigo-600 text-white px-8 py-2 rounded-lg hover:bg-indigo-700 transition duration-300 shadow-md">
+            Send Message
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Footer -->
+    <section class="text-center mt-20 mb-8 text-gray-500 dark:text-gray-400">
+      <p>© 2025 Smart Contact Manager — We’re happy to connect with you ❤️</p>
+    </section>
+  </div>
+
+  <script>
+    console.log("Contact Page loaded successfully!");
+  </script>
+</body>
+</html>

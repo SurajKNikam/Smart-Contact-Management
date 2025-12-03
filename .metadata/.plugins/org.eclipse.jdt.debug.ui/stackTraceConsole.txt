@@ -1,0 +1,11 @@
+java.lang.NumberFormatException: For input string: "122.86
+5"
+	at java.base/jdk.internal.math.FloatingDecimal.readJavaFormatString(FloatingDecimal.java:2054)
+	at java.base/jdk.internal.math.FloatingDecimal.parseFloat(FloatingDecimal.java:122)
+	at java.base/java.lang.Float.parseFloat(Float.java:556)
+	at com.jpmc.midascore.KafkaProducer.send(KafkaProducer.java:20)
+	at com.jpmc.midascore.TaskTwoTests.task_two_verifier(TaskTwoTests.java:27)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+

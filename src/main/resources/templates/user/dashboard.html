@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${LoggedInUser.name}+' | Dashboard'">Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/output.css}" />
+</head>
+
+<body class="bg-gradient-to-br from-sky-50 via-indigo-50 to-white min-h-screen" id="content">
+
+<!-- ✅ SIDEBAR (From Base Layout) -->
+<div th:if="${LoggedInUser}">
+  <div th:replace="~{user/sidebar :: sidebar}"></div>
+</div>
+
+<!-- ✅ MAIN CONTENT -->
+<div class="sm:pl-64 pt-20 px-6 min-h-screen">
+  
+  <!-- Dashboard Header -->
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
+    <div>
+      <h1 class="text-indigo-600 font-bold text-gray-800">
+        Welcome Back, <span class="text-indigo-600" th:text="${LoggedInUser.name}">User</span> 👋
+      </h1>
+      <p class="text-gray-600 mt-2">Here’s what’s happening with your account today.</p>
+    </div>
+    <div class="mt-4 sm:mt-0">
+      <a href="/user/profile"
+         class="px-5 py-2 bg-indigo-600 text-white rounded-full shadow-md hover:bg-indigo-700 transition">
+        View Profile
+      </a>
+    </div>
+  </div>
+
+  <!-- Dashboard Summary Cards -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+    <!-- Total Contacts -->
+    <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1">
+      <h3 class="text-gray-500 font-medium mb-2">Total Contacts</h3>
+      <p class="text-3xl font-semibold text-indigo-600" th:text="${#lists.size(LoggedInUser.contacts)}">0</p>
+      <p class="text-gray-400 text-sm mt-1">All saved contacts in your account</p>
+    </div>
+
+    <!-- Verified Email -->
+    <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1">
+      <h3 class="text-gray-500 font-medium mb-2">Email Verification</h3>
+      <p th:text="${LoggedInUser.emailVerified ? 'Verified ✅' : 'Not Verified ❌'}"
+         class="text-2xl font-semibold"
+         th:classappend="${LoggedInUser.emailVerified} ? 'text-green-600' : 'text-red-600'">
+      </p>
+      <p class="text-gray-400 text-sm mt-1">Your registered email address status</p>
+    </div>
+
+    <!-- Provider -->
+    <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1">
+      <h3 class="text-gray-500 font-medium mb-2">Login Provider</h3>
+      <p class="text-2xl font-semibold text-gray-700" th:text="${LoggedInUser.provider}">SELF</p>
+      <p class="text-gray-400 text-sm mt-1">Signed in via your preferred method</p>
+    </div>
+  </div>
+
+  <!-- Activity Section -->
+  <!-- <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Recent Activity</h2>
+    <ul class="space-y-3 text-gray-600">
+      <li>🕓 Logged in 5 minutes ago</li>
+      <li>📞 Added new contact: <span class="font-medium text-gray-800">John Doe</span></li>
+      <li>✏️ Updated profile picture</li>
+      <li>📧 Verified email successfully</li>
+    </ul>
+  </div> -->
+
+</div>
+
+<!-- ✅ Scroll Animation -->
+<script src="https://unpkg.com/scrollreveal"></script>
+<script>
+ScrollReveal().reveal('.grid > div', {
+  duration: 800,
+  distance: '40px',
+  origin: 'bottom',
+  interval: 150
+});
+ScrollReveal().reveal('.bg-white.p-8', {
+  duration: 1000,
+  distance: '40px',
+  origin: 'bottom'
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+</body>
+</html>
